@@ -1,11 +1,11 @@
 import axios from 'axios';
-const APP_URL = process.env.REACT_APP_BASE_URL
+const APP_URL = process.env.REACT_APP_DEV_URL
 function getToken() {
   const data = localStorage && localStorage.getItem('token');
   return data; 
 }
 
-let Api = axios.create({
+let ApiDev = axios.create({
   baseURL:APP_URL,
   headers: {
     'content-type': 'application/json',
@@ -16,7 +16,7 @@ let Api = axios.create({
   }
 });
 
-Api.interceptors.request.use(
+ApiDev.interceptors.request.use(
   async (config) => {
       const token = getToken();
       if (token !== null) {
@@ -29,4 +29,4 @@ Api.interceptors.request.use(
   }
 );
 
-export default Api;
+export default ApiDev;

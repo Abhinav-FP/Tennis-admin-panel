@@ -4,6 +4,9 @@ import { ImUsers } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { HiOutlineX } from "react-icons/hi";
 import { HiOutlineBars3 } from "react-icons/hi2";
+import { MdLogout } from "react-icons/md";
+import ApiDev from "./api/ApiDev";
+import toast from "react-hot-toast";
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +15,26 @@ export default function SideBar() {
     setIsOpen(!isOpen);
   };
 
+  const handleLogout = async () => {
+    try {
+      const tokens = localStorage && localStorage.getItem(`token`);
+      const response = await ApiDev.post("/logout", { tokens });
+  
+      // Check if response status is successful, assuming response structure
+      if (response.status === 200 && response.data.message === true) {
+        console.log("Token Removed");
+        localStorage.removeItem(tokens);
+        toast.success("Logout Successful");
+      } else {
+        // Handle unsuccessful logout (optional)
+        console.error("Logout request failed:", response.data);
+        toast.error("Failed to logout. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error occurred during logout:", error);
+      toast.error("Error occurred during logout. Please try again.");
+    }
+  };
   return (
     <>
       <button
@@ -53,11 +76,11 @@ export default function SideBar() {
             </li>
             <li>
               <Link
-                to="/players"
+                to="/ranking/add"
                 className="flex items-center p-2 text-gray-100 rounded-lg hover:bg-gray-700 group"
               >
                 <ImUsers size={24} className="text-white" />
-                <span className="flex-1 ms-3 whitespace-nowrap">Players</span>
+                <span className="flex-1 ms-3 whitespace-nowrap">Add Ranking</span>
               </Link>
             </li>
             <li>
@@ -68,6 +91,15 @@ export default function SideBar() {
                 <MdLogin size={24} className="text-white" />
                 <span className="flex-1 ms-3 whitespace-nowrap">Login</span>
               </Link>
+            </li>
+            <li>
+              <button
+                onClick={handleLogout}
+                className="flex text-left w-full items-center p-2 text-gray-100 rounded-lg hover:bg-gray-700 group"
+              >
+                <MdLogout size={24} className="text-white" />
+                <span className="flex-1 ms-3 whitespace-nowrap">Logout</span>
+              </button>
             </li>
           </ul>
         </div>
