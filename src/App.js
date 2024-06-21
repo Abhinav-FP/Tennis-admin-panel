@@ -15,9 +15,9 @@ function App() {
       <AuthLayout>
     <Routes>
       {/* homepage */}
-      <Route path="" element={<HomePage/>}></Route>
+      <Route path="" element={<AddRanking/>}></Route>
       <Route path="/login" element={<Login/>}></Route>
-      <Route path="/ranking/add" element={<AddRanking/>}></Route>
+      {/* <Route path="/ranking/add" element={<AddRanking/>}></Route> */}
     </Routes>
     </AuthLayout>
     </div>

@@ -76,15 +76,6 @@ export default function SideBar() {
             </li>
             <li>
               <Link
-                to="/ranking/add"
-                className="flex items-center p-2 text-gray-100 rounded-lg hover:bg-gray-700 group"
-              >
-                <ImUsers size={24} className="text-white" />
-                <span className="flex-1 ms-3 whitespace-nowrap">Add Ranking</span>
-              </Link>
-            </li>
-            <li>
-              <Link
                 to="/login"
                 className="flex items-center p-2 text-gray-100 rounded-lg hover:bg-gray-700 group"
               >

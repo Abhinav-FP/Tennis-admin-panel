@@ -112,7 +112,7 @@ export default function AddRanking() {
         onSubmit={handlesubmit}
         className="bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-md"
       >
-        <h1 className="text-xl font-bold mb-6 text-center">Custom Form</h1>
+        <h1 className="text-xl font-bold mb-6 text-center">Update Ranking</h1>
 
         <div className="mb-4">
           <label
@@ -151,7 +151,7 @@ export default function AddRanking() {
               onChange={handleChange}
               className="bg-gray-700 border border-gray-600 text-gray-100 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             >
-              <option value="">Select all group </option>
+              <option value="">Select group </option>
               <option value="S">Singles</option>
               <option value="D">Doubles</option>
             </select>
@@ -171,7 +171,7 @@ export default function AddRanking() {
               onChange={handleChange}
               className="bg-gray-700 border border-gray-600 text-gray-100 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             >
-              <option value="">Select all group </option>
+              <option value="">Select group </option>
               <option value="U-12">U-12</option>
               <option value="U-14">U-14</option>
               <option value="U-16">U-16</option>
