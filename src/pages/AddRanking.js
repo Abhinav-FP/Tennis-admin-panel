@@ -16,8 +16,8 @@ export default function AddRanking() {
     B: "boy",
     M: "men",
     W: "women",
-    S: "single",
-    D: "double",
+    S: "s",
+    D: "d",
   };
 
   const handleChange = (e) => {
@@ -39,12 +39,12 @@ export default function AddRanking() {
       return;
     }
     setLoading(true);
-    console.log("formData", formData);
+    // console.log("formData", formData);
     setBtnText("Converting data...");
   
     const urldata = new FormData();
     let url = `https://aitatennis.com/management/upload/ranking/${formData.date}_${formData.category}${formData.group}.pdf`;
-    console.log("link", url);
+    // console.log("link", url);
     urldata.append("url", url);
     urldata.append(
       "sub_category",
@@ -54,7 +54,7 @@ export default function AddRanking() {
     try {
       const main = new Details();
       const response = await main.DataConvert(urldata);
-      console.log("response", response);
+      // console.log("response", response);
   
       if (!response.data.status) {
         toast.error(response.data.message);
@@ -65,7 +65,7 @@ export default function AddRanking() {
   
       const json_data = response.data.data.data;
       setBtnText("Uploading data");
-      console.log("json", json_data);
+      // console.log("json", json_data);
   
       let token = localStorage.getItem("token");
       const record = new FormData();
@@ -78,13 +78,13 @@ export default function AddRanking() {
       record.append("token", token);
       record.append("rank", JSON.stringify(json_data));
   
-      for (let pair of record.entries()) {
-        console.log(pair[0], pair[1]);
-      }
+      // for (let pair of record.entries()) {
+      //   console.log(pair[0], pair[1]);
+      // }
   
       const resp = await main.AddRanking(record);
       if (resp && resp?.data && resp?.data?.status) {
-        toast.success(resp?.data?.message);
+        toast.success("Data Uploaded Successfully");
         setBtnText("Submit");
         setFormData({
           category: "",
@@ -93,12 +93,12 @@ export default function AddRanking() {
         });
         setLoading(false);
       } else {
-        toast.error(resp?.data?.message);
+        toast.error("Failed to update data");
         setLoading(false);
         setBtnText("Submit");
       }
     } catch (error) {
-      toast.error(error?.message);
+      toast.error("Error");
       console.log(error);
       setLoading(false);
       setBtnText("Submit");

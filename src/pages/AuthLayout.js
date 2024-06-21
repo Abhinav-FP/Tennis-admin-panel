@@ -11,7 +11,7 @@ export default function AuthLayout({ children }) {
     const checkAuthentication = async () => {
       try {
         const response = await ApiDev.get("api/self");
-        console.log("login check", response.data); // Log the response data for debugging
+        // console.log("login check", response.data); // Log the response data for debugging
 
         if (response.data.success == "false") {
           navigate("/login");
