@@ -7,6 +7,7 @@ import { HiOutlineBars3 } from "react-icons/hi2";
 import { MdLogout } from "react-icons/md";
 import ApiDev from "./api/ApiDev";
 import toast from "react-hot-toast";
+import Api from "./api/Api";
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,8 +32,10 @@ export default function SideBar() {
 
   const handleLogout = async () => {
     try {
-      const response = await ApiDev.post("/logout");
-      if (response.status === 200 && response.data.success === true) {
+      const logoutData = new FormData();
+      logoutData.append("token",token);
+      const response = await Api.post("/api/extract/logout",logoutData);
+      if (response.data.status === true) {
         console.log("Token Removed");
         deleteToken();
         toast.success("Logout Successful");

@@ -11,6 +11,9 @@ class Details extends Component {
   async AddRanking(data) {
     return Api.post(`/api/extract/ranking-data-post`, data);
   }
+  async logout(token) {
+    return Api.post(`/api/extract/logout`, token);
+  }
 
   render() {
     return (

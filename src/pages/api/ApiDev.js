@@ -12,6 +12,7 @@ let ApiDev = axios.create({
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
+    "Access-Control-Allow-Origin": "*",
     'Authorization': `Bearer ${getToken()}`,
     'Cache-Control': 'no-cache, no-store, must-revalidate'
   }
