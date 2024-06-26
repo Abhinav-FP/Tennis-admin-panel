@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdDashboard, MdLogin } from "react-icons/md";
 import { ImUsers } from "react-icons/im";
 import { Link } from "react-router-dom";
@@ -10,20 +10,31 @@ import toast from "react-hot-toast";
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [token, setToken] = useState(null);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  // Function to delete the token
+  const deleteToken = () => {
+    localStorage.removeItem('token');
+    setToken(null); // Update state if necessary
+  };
+  console.log(`token`,token);
 
   const handleLogout = async () => {
     try {
-      const tokens = localStorage && localStorage.getItem(`token`);
-      const response = await ApiDev.post("/logout", { tokens });
-  
-      // Check if response status is successful, assuming response structure
-      if (response.status === 200 && response.data.message === true) {
+      const response = await ApiDev.post("/logout");
+      if (response.status === 200 && response.data.success === true) {
         console.log("Token Removed");
-        localStorage.removeItem(tokens);
+        deleteToken();
         toast.success("Logout Successful");
       } else {
         // Handle unsuccessful logout (optional)
