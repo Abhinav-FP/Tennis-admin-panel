@@ -56,17 +56,15 @@ export default function AddRanking() {
       const response = await main.DataConvert(urldata);
       // console.log("response", response);
   
-      if (!response.data.status) {
+      if (response.data.status=="false") {
         toast.error(response.data.message);
         setLoading(false);
         setBtnText("Submit");
         return;
-      }
-  
+      }  
       const json_data = response.data.data.data;
       setBtnText("Uploading data");
-      // console.log("json", json_data);
-  
+      // console.log("json", json_data); 
       let token = localStorage.getItem("token");
       const record = new FormData();
       record.append("date", formData?.date);
@@ -98,7 +96,7 @@ export default function AddRanking() {
         setBtnText("Submit");
       }
     } catch (error) {
-      toast.error("Error");
+      toast.error(error.response.data.message);
       console.log(error);
       setLoading(false);
       setBtnText("Submit");
