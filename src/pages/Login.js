@@ -32,7 +32,7 @@ export default function Login() {
       if (response.data.data.success) {
         toast.success(response?.data?.data?.message);
         localStorage.setItem("token", response?.data?.data?.token);
-        navigate("/ranking/add");
+        navigate("/");
       } else {
         toast.error(response?.data?.data?.message);
       }

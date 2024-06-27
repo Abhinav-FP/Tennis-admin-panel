@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MdDashboard, MdLogin } from "react-icons/md";
 import { ImUsers } from "react-icons/im";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineX } from "react-icons/hi";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import { MdLogout } from "react-icons/md";
@@ -12,6 +12,7 @@ import Api from "./api/Api";
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [token, setToken] = useState(null);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -32,18 +33,19 @@ export default function SideBar() {
 
   const handleLogout = async () => {
     try {
-      const logoutData = new FormData();
-      logoutData.append("token",token);
-      const response = await Api.post("/api/extract/logout",logoutData);
-      if (response.data.status === true) {
-        console.log("Token Removed");
+      // const logoutData = new FormData();
+      // logoutData.append("token",token);
+      // const response = await Api.post("/api/extract/logout",logoutData);
+      // if (response.data.status === true) {
         deleteToken();
+        console.log("Token Removed");
         toast.success("Logout Successful");
-      } else {
+        navigate("/login");
+      // } else {
         // Handle unsuccessful logout (optional)
-        console.error("Logout request failed:", response.data);
-        toast.error("Failed to logout. Please try again.");
-      }
+        // console.error("Logout request failed");
+        // toast.error("Failed to logout. Please try again.");
+      // }
     } catch (error) {
       console.error("Error occurred during logout:", error);
       toast.error("Error occurred during logout. Please try again.");
