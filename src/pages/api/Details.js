@@ -14,6 +14,9 @@ class Details extends Component {
   async logout(token) {
     return Api.post(`/api/extract/logout`, token);
   }
+  async check() {
+    return Api.get(``);
+  }
 
   render() {
     return (

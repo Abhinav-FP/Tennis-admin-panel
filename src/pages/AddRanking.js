@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Details from "./api/Details";
+import { useNavigate } from "react-router-dom";
 
 export default function AddRanking() {
     const [loading, setLoading] = useState(false);
@@ -18,6 +19,21 @@ export default function AddRanking() {
     W: "women",
     S: "s",
     D: "d",
+  };
+  const [token, setToken] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  // Function to delete the token
+  const deleteToken = () => {
+    localStorage.removeItem('token');
+    setToken(null); // Update state if necessary
   };
 
   const handleChange = (e) => {
@@ -102,9 +118,31 @@ export default function AddRanking() {
       setBtnText("Submit");
     }
   }
+
+  const handleLogout = async () => {
+    try {
+      // const logoutData = new FormData();
+      // logoutData.append("token",token);
+      // const response = await Api.post("/api/extract/logout",logoutData);
+      // if (response.data.status === true) {
+        deleteToken();
+        // console.log("Token Removed");
+        toast.success("Logout Successful");
+        navigate("/login");
+      // } else {
+        // Handle unsuccessful logout (optional)
+        // console.error("Logout request failed");
+        // toast.error("Failed to logout. Please try again.");
+      // }
+    } catch (error) {
+      console.error("Error occurred during logout:", error);
+      toast.error("Error occurred during logout. Please try again.");
+    }
+  };
   
 
   return (
+    <>
     <div className="bg-gray-900 text-gray-100 min-h-screen flex items-center justify-center p-4">
       <form
         onSubmit={handlesubmit}
@@ -194,7 +232,6 @@ export default function AddRanking() {
             className="bg-gray-700 border border-gray-600 text-gray-100 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
         </div>
-
         <button
           type="submit"
           className="bg-[#008f70] w-full rounded-full py-2 px-4 text-white font-medium"
@@ -202,6 +239,14 @@ export default function AddRanking() {
           {btnText}
         </button>
       </form>
-    </div>
+    <button
+          type="submit"
+          className="absolute bottom-2.5 right-2.5 w-fit bg-[#008f70] w-full rounded-full py-2 px-4 text-white font-medium"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+    </div> 
+    </>
   );
 }

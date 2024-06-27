@@ -28,7 +28,7 @@ export default function Login() {
       logindata.append("password", formData?.password);
       const main = new Details();
       const response = await main.login(logindata); // Await the response
-
+      console.log("response",response);
       if (response.data.data.success) {
         toast.success(response?.data?.data?.message);
         localStorage.setItem("token", response?.data?.data?.token);
@@ -40,7 +40,7 @@ export default function Login() {
       if (error.response && error.response.status === 422) {
         toast.error(error.response.data.message || "Validation error");
       } else {
-        toast.error("An unexpected error occurred");
+        toast.error("Invalid login details");
       }
     } finally {
       setLoading(false); 
