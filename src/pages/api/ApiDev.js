@@ -21,6 +21,7 @@ let ApiDev = axios.create({
 ApiDev.interceptors.request.use(
   async (config) => {
     const token = getToken();
+    // console.log("token",token)
     if (token !== null) {
       config.headers.Authorization = `Bearer ${token}`;
     }

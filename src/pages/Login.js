@@ -43,7 +43,7 @@ export default function Login() {
         toast.error("An unexpected error occurred");
       }
     } finally {
-      setLoading(false);
+      setLoading(false); 
     }
   }
 
