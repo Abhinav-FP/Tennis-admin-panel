@@ -29,7 +29,7 @@ export default function SideBar() {
     localStorage.removeItem('token');
     setToken(null); // Update state if necessary
   };
-  console.log(`token`,token);
+  // console.log(`token`,token);
 
   const handleLogout = async () => {
     try {
@@ -38,7 +38,7 @@ export default function SideBar() {
       // const response = await Api.post("/api/extract/logout",logoutData);
       // if (response.data.status === true) {
         deleteToken();
-        console.log("Token Removed");
+        // console.log("Token Removed");
         toast.success("Logout Successful");
         navigate("/login");
       // } else {
