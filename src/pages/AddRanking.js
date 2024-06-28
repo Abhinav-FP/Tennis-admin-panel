@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Details from "./api/Details";
 import { useNavigate } from "react-router-dom";
+import Api from "./api/Api";
 
 export default function AddRanking() {
     const [loading, setLoading] = useState(false);
@@ -40,7 +41,6 @@ export default function AddRanking() {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-
   async function handlesubmit(e) {
     e.preventDefault();
     if (loading) {
@@ -121,22 +121,24 @@ export default function AddRanking() {
 
   const handleLogout = async () => {
     try {
-      // const logoutData = new FormData();
-      // logoutData.append("token",token);
-      // const response = await Api.post("/api/extract/logout",logoutData);
-      // if (response.data.status === true) {
+      const logoutData = new FormData();
+      logoutData.append("token",token);
+      const response = await Api.post("/api/extract/logout",logoutData);
+      console.log("response",response);
+      // if (response?.data?.data?.success === true) {
         deleteToken();
-        // console.log("Token Removed");
+        console.log("Token Removed");
         toast.success("Logout Successful");
         navigate("/login");
-      // } else {
-        // Handle unsuccessful logout (optional)
-        // console.error("Logout request failed");
-        // toast.error("Failed to logout. Please try again.");
-      // }
+    //   } else {
+    //     console.error("Logout request failed");
+    //     toast.error("Failed to logout. Please try again.");
+    //   }
     } catch (error) {
-      console.error("Error occurred during logout:", error);
-      toast.error("Error occurred during logout. Please try again.");
+      deleteToken();
+      console.log("Token Removed");
+      toast.success("Logout Successful");
+      navigate("/login");
     }
   };
   
@@ -241,7 +243,7 @@ export default function AddRanking() {
       </form>
     <button
           type="submit"
-          className="absolute bottom-2.5 right-2.5 w-fit bg-[#008f70] w-full rounded-full py-2 px-4 text-white font-medium"
+          className="absolute bottom-2.5 right-2.5 max-w-fit bg-[#008f70] w-full rounded-full py-2 px-4 text-white font-medium"
           onClick={handleLogout}
         >
           Logout
