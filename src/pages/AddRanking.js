@@ -125,10 +125,10 @@ export default function AddRanking() {
       const logoutData = new FormData();
       logoutData.append("token",token);
       const response = await Api.post("/api/extract/logout",logoutData);
-      console.log("response",response);
+      // console.log("response",response);
       // if (response?.data?.data?.success === true) {
         deleteToken();
-        console.log("Token Removed");
+        // console.log("Token Removed");
         toast.success("Logout Successful");
         navigate("/login");
     //   } else {
@@ -137,7 +137,7 @@ export default function AddRanking() {
     //   }
     } catch (error) {
       deleteToken();
-      console.log("Token Removed");
+      // console.log("Token Removed");
       toast.success("Logout Successful");
       navigate("/login");
     }
