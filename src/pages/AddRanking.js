@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Details from "./api/Details";
+import AuthLayout from "../pages/AuthLayout"
 import { useNavigate } from "react-router-dom";
 import Api from "./api/Api";
 
@@ -144,7 +145,7 @@ export default function AddRanking() {
   
 
   return (
-    <>
+    <AuthLayout>
     <div className="bg-gray-900 text-gray-100 min-h-screen flex items-center justify-center p-4">
       <form
         onSubmit={handlesubmit}
@@ -249,6 +250,6 @@ export default function AddRanking() {
           Logout
         </button>
     </div> 
-    </>
+    </AuthLayout>
   );
 }

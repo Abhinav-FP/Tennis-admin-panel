@@ -7,27 +7,31 @@ export default function AuthLayout({ children }) {
   const navigate = useNavigate();
   const [content, setContent] = useState([]);
 
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      try {
-        const response = await ApiDev.get("api/self");
-        // console.log("login check", response.data); // Log the response data for debugging
-
-        if (response.data.success == "false") {
-          navigate("/login");
-          toast.error("Please log in first.");
-        } else {
-          setContent(response.data.data);
-        }
-      } catch (error) {
-        console.error("Error fetching authentication:", error);
+  const checkAuthentication = async () => {
+    try {
+      const response = await ApiDev.get("api/self");
+      // console.log("login check", response.data);
+      if (response.data.success == "false") {
+        console.log("Hi");
         navigate("/login");
         toast.error("Please log in first.");
+      } else {
+        console.log("Hello");
+        setContent(response.data.data);
       }
-    };
-
+    } catch (error) {
+      console.log("Namaste");
+      // console.error("Error fetching authentication:", error);
+      navigate("/login");
+      toast.error("Please log in first.");
+    }
+  };
+  useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
     checkAuthentication();
-  }, [navigate]); // Depend on navigate to update useEffect on route change
+    return () => controller.abort();
+  }, []); 
 
   return (
     <>
