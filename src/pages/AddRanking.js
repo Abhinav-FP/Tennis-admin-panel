@@ -8,6 +8,7 @@ import Api from "./api/Api";
 export default function AddRanking() {
     const [loading, setLoading] = useState(false);
     const [btnText, setBtnText] = useState("Submit");
+    const[text,setText]=useState("");
     const [formData, setFormData] = useState({
       category: "",
       group: "",
@@ -101,6 +102,7 @@ export default function AddRanking() {
       if (resp && resp?.data && resp?.data?.status) {
         toast.success("Data Uploaded Successfully");
         setBtnText("Submit");
+        setText(`Last data added for ${formData?.category}-${formData?.group} for ${formData?.date}`);
         setFormData({
           category: "",
           group: "",
@@ -146,7 +148,7 @@ export default function AddRanking() {
 
   return (
     <AuthLayout>
-    <div className="bg-gray-900 text-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div className="bg-gray-900 text-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
       <form
         onSubmit={handlesubmit}
         className="bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-md"
@@ -242,6 +244,10 @@ export default function AddRanking() {
           {btnText}
         </button>
       </form>
+      {text && text.length>0?
+      <p className="mt-6">{text}</p>
+      : null
+    }
     <button
           type="submit"
           className="absolute bottom-2.5 right-2.5 max-w-fit bg-[#008f70] w-full rounded-full py-2 px-4 text-white font-medium"
