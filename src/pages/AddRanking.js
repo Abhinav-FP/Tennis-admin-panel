@@ -68,7 +68,7 @@ export default function AddRanking() {
       "sub_category",
       formData?.group.replace("-", "_").toLowerCase()
     );
-  
+    urldata.append("category", formData?.category);
     try {
       const main = new Details();
       const response = await main.DataConvert(urldata);
